@@ -1,0 +1,379 @@
+.custom-svg-cst{
+    position: absolute !important;
+    left: 154px !important;
+    top: -100px !important;
+    width: 809px !important;
+}
+
+.bwvDcg {
+    position: relative;
+    /* width: 420px; */
+}
+
+.bwvDcg input {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 100%;
+    padding: 9px;
+    border-image: initial;
+    border-left: 1px solid rgb(225, 226, 234);
+}
+.bwvDcg .btn-search {
+    border: 0px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    border-radius: 0px 8px 8px 0px;
+    cursor: pointer;
+}
+
+.card-img, .card-img-bottom {
+    border-bottom-right-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+}
+
+.card-img, .card-img-top {
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+}
+
+  .hero-section {
+    position: relative;
+    overflow: hidden;
+    height: 666px;
+    display: flex;
+    align-items: center;
+    /* background-image: url("../img/svg/ombak.svg"); */
+    background-image: url("../img/svg/hero.svg");
+    background-size: cover;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    /* cover khusus svg ombak active */
+    /* background-size:cover;  */
+    z-index: 1;
+  }
+.header-top-orange{
+    background: #f05d0e !important;
+    /* color: #ffffff; */
+    /* bg svg ombak */
+    /* background: #f6951f !important; */
+};
+
+/* #header .header-nav.header-nav-links:not(.header-nav-light-text) nav > ul > li > a, #header .header-nav.header-nav-line:not(.header-nav-light-text) nav > ul > li > a {
+    color: #ffffff !important;
+}  */
+#header .header-nav.header-nav-main.nav-links:not(.header-nav-light-text) nav > ul > li > a.new-color {
+    color: #ffffff !important;
+  }
+.new-color{
+color: #ffffff !important;
+}
+  .header-scrolled{
+    background: #ffffff !important;
+}
+/* =================
+    LOGO
+==================== */
+  .logo-organisasi {
+    width: 50%;    
+    height: 70%;      
+
+}
+.logo-detail-organisasi {
+    width: 90px;
+    height: 90px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.hover_me::hover{ box-shadow: 8px 8px 25px rgba(222, 222, 222, 0.25);}
+
+/* ================
+    SERVICE  ITEM 
+ ================== */
+.services-item {
+    padding: 20px;
+    border-radius: 4px;
+    text-align: start;
+    margin: 15px 0;
+    box-shadow: 0 2px 18px 0 rgba(198,198,198,.3);
+    transition: all .3s;
+}
+
+.services-item .icon {
+    border: 1px solid rgba(198,198,198,.3);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin: 0 auto;
+    transition: all .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.services-item .icon i {
+    font-size: 30px;
+    color: rgb(167, 151, 155);
+    line-height: 70px;
+    transition: all .3s
+}
+
+.services-item .services-content h3 {
+    margin-top: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 10px
+}
+
+.services-item .services-content h3 a {
+    font-size: 16px;
+    color: #585b60
+}
+
+.services-item .services-content h3 a:hover {
+    color: #f63854
+}
+
+.services-item:hover {
+    box-shadow: 0 10px 22px 10px rgba(27,38,49,.1)
+}
+
+.services-item:hover .icon {
+    background: #FBEEEF
+}
+
+.services-item:hover .icon i {
+    color: #fff
+}
+
+.counter-wrapper .single-counter {
+    max-width: 155px;
+    height: 120px;
+    border-radius: 60px;
+    position: relative;
+    z-index: 5;
+    margin-top: 60px
+}
+
+/* ============================= 
+    GALLERY-4 CSS
+================================ */
+.gallery-style-4 {
+    padding: 35px 0 70px;
+    background: #f3f3f3;
+  }
+  
+  .gallery-style-4 .single-gallery {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    margin-bottom: 30px;
+  }
+  
+  .gallery-style-4 .single-gallery:hover .overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .gallery-style-4 .single-gallery:hover .overlay .action {
+    transform: translateY(0px);
+  }
+  
+  .gallery-style-4 .single-gallery .image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+  
+  .gallery-style-4 .single-gallery .image img {
+    width: 100%;
+    height: 300px;
+  }
+  
+  .gallery-style-4 .single-gallery .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-out 0s;
+    background: rgba(47, 128, 237, 0.3);
+  }
+  
+  .gallery-style-4 .single-gallery .overlay .action {
+    transform: translateY(20px);
+    transition: all 0.3s ease-out 0s;
+  }
+  
+  .gallery-style-4 .single-gallery .overlay .action a {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #323450;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .gallery-style-4 .single-gallery .info {
+    transition: all 0.3s ease-out 0s;
+    background: #ffffff;
+    margin-left: 30px;
+    margin-bottom: 15px;
+    padding: 30px 20px;
+    border-radius: 5px 0 5px 5px;
+    margin-top: -70px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    height: 140px;
+  }
+  
+  .gallery-style-4 .single-gallery .info h5 {
+    margin-bottom: 15px;
+  }
+
+  /* ================
+    SINGLE FEATURE
+  =================== */
+  .single-feature {
+    margin-bottom: 10px;
+    padding: 40px 30px;
+    transition: all 0.3s ease-out 0s;
+    border-radius: 5px;
+  }
+  
+  @media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .single-feature {
+      padding: 35px 25px;
+    }
+  }
+  
+  .single-feature:hover {
+    box-shadow: 8px 8px 25px rgba(222, 222, 222, 0.25);
+  }
+  
+  .single-feature:hover .feature-icon {
+    background-color: rgb(200, 177, 177);
+  }
+  
+  .single-feature .feature-icon {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    background: rgb(232, 232, 237);
+    color: #fff;
+    font-size: 40px;
+    transition: all 0.3s ease-out 0s;
+    overflow: hidden;
+  }
+  
+  .single-feature .feature-content h4 {
+    margin-bottom: 15px;
+    font-weight: 500;
+  }
+  
+  .single-feature .feature-content p {
+    font-size: 15px;
+  }
+
+ /*------------------------
+	base class definition
+-------------------------*/
+.lni {
+    display: inline-block;
+    font: normal normal normal 1em/1 'LineIcons';
+    speak: none;
+    text-transform: none;
+    /* Better Font Rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* =====================
+  DISPLAY WRAPER DATA SHOW DATA
+   */
+    div.dataTables_length label {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap
+}
+
+ div.dataTables_length select {
+    width: auto;
+    display: inline-block
+}
+
+ div.dataTables_filter {
+    text-align: right
+}
+
+ div.dataTables_filter label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: left
+}
+
+ div.dataTables_filter input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: auto
+}
+
+ div.dataTables_info {
+    padding-top: 0.85em;
+    white-space: nowrap
+}
+
+ div.dataTables_paginate {
+    margin: 0;
+    white-space: nowrap;
+    text-align: right
+}
+
+ div.dataTables_paginate ul.pagination {
+    margin: 2px 0;
+    white-space: nowrap;
+    justify-content: flex-end
+}
+
+ div.dataTables_processing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    margin-left: -100px;
+    margin-top: -26px;
+    text-align: center;
+    padding: 1em 0
+}
+
+.sec-padding {
+    padding: 15px 0 50px;
+}
+
+.top-line-custom {
+    background: -webkit-gradient(linear, left top, left bottom, from(#fe8464), to(#fe6e9a));
+    background: linear-gradient(#fe8464 0%, #fe6e9a 100%);
+    width: 150px;
+    height: 5px;
+    margin-bottom: 10px !important;
+  }
