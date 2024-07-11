@@ -170,7 +170,7 @@ class Data extends BaseController
         // INSERT to REKAP DATA 
         $url = $this->apiEndPointGardu . "save-data-download";
         $formData['kelompok_data'] = $path;
-        $resp = saveRekapDownload($url, $formData);
+        $resp = $this->saveRekapDownload($url, $formData);
 
         // ambil data dari gardu
         $endPoint = $this->apiEndPointGardu . "data-dukung/" . $path . "?filter=" . $this->request->getPost('filter');
@@ -185,7 +185,7 @@ class Data extends BaseController
             'Nilai Capain Indikator' => $respData['data_tahun']
 
         ];
-        $excelData = exportExcel($respData['data'], $colom);
+        $excelData = $this->exportExcel($respData['data'], $colom);
 
         if (isset($resp['success']) && $resp['success']) {
             $resp['file'] = ($excelData);
@@ -194,5 +194,70 @@ class Data extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('data tidak di temukan');
         }
         // return redirect()->to(site_url($path));
+    }
+
+    private function saveRekapDownload($url, $data)
+    {
+        $client = \Config\Services::curlrequest();
+        $headers = [
+            'Authorization' => 'Basic TmFzMTo5bUhnbkFtaFBRYms5cjhNYm9yQnpnSUoyMkdjemVIMw==', // Replace with your actual base64-encoded username:password
+            'Content-Type' => 'application/json'
+        ];
+        $response = $client->post($url, [
+            'headers' => $headers,
+            'json' => $data
+        ]);
+        return json_decode($response->getBody(), true);
+    }
+
+    private function exportExcel($data, $columns)
+    {
+        // Example implementation using PHPExcel
+        // Ensure you have PHPExcel library installed and autoloaded properly
+        // Replace this implementation with your preferred library or implementation
+
+        // Load PHPExcel
+        $objPHPExcel = new \PHPExcel();
+
+        // Set document properties
+        $objPHPExcel->getProperties()->setCreator("Your Name")
+            ->setLastModifiedBy("Your Name")
+            ->setTitle("Data Export")
+            ->setSubject("Data Export")
+            ->setDescription("Data Export")
+            ->setKeywords("data export")
+            ->setCategory("Data");
+
+        // Add data
+        $objPHPExcel->setActiveSheetIndex(0);
+        $sheet = $objPHPExcel->getActiveSheet();
+
+        // Set headers
+        $headerRow = 1;
+        foreach ($columns as $header => $field) {
+            $sheet->setCellValueByColumnAndRow(array_search($header, $columns), $headerRow, $header);
+        }
+
+        // Set data rows
+        $row = 2;
+        foreach ($data as $item) {
+            foreach ($columns as $header => $field) {
+                $sheet->setCellValueByColumnAndRow(array_search($header, $columns), $row, $item[$field]);
+            }
+            $row++;
+        }
+
+        // Rename worksheet
+        $sheet->setTitle('Data Export');
+
+        // Set headers for download
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="data_export.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        // Write file to output
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objWriter->save('php://output');
+        exit;
     }
 }
