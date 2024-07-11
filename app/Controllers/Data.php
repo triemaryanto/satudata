@@ -68,6 +68,18 @@ class Data extends BaseController
 
         return view('data/index', $data);
     }
+    private function getApiGardu($url)
+    {
+        $client = \Config\Services::curlrequest();
+        $headers = [
+            'Authorization' => 'Basic TmFzMTo5bUhnbkFtaFBRYms5cjhNYm9yQnpnSUoyMkdjemVIMw==', // Replace 'username:password' with your actual username and password
+            'Content-Type' => 'application/json'
+        ];
+        $response = $client->get($url, [
+            'headers' => $headers
+        ]);
+        return json_decode($response->getBody(), true);
+    }
     public function getDataAjax()
     {
         if (!$this->request->isAJAX()) {
@@ -79,9 +91,9 @@ class Data extends BaseController
         $start = (int)$this->request->getGet('start');
 
         $endPoint = $this->apiEndPointGardu . "data-dukung/" . $page . "?start=" .  $start . "&limit=" . $limit;
-        $resp = getApiGardu($endPoint);
+        $resp = $this->getApiGardu($endPoint);
 
-        return $this->response->setJSON($resp);
+        return $this->response->setJSON($resp['result']);
     }
 
     public function downloadFile($path)
@@ -162,7 +174,7 @@ class Data extends BaseController
 
         // ambil data dari gardu
         $endPoint = $this->apiEndPointGardu . "data-dukung/" . $path . "?filter=" . $this->request->getPost('filter');
-        $respData = getApiGardu($endPoint);
+        $respData = $this->getApiGardu($endPoint);
 
         // export excel
         $colom = [

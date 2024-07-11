@@ -2,28 +2,62 @@
 
 namespace App\Controllers;
 
-class Analisa extends BaseController {
+class Analisa extends BaseController
+{
     private $apiEndPointGardu;
     private $validation;
-    public function __construct() {
+    public function __construct()
+    {
         // end point di sesuaikan dengan CI_ENVIRONMENT
-        $this->apiEndPointGardu = apiEndPointGardu();
+        $this->apiEndPointGardu = $this->apiEndPointGardu();
         $this->validation = \Config\Services::validation();
     }
+    public function apiEndPointGardu()
+    {
+        return "https://gardu.wonosobokab.go.id/api/";
+    }
 
-    public function index() {
+    private function getApiGardu($url)
+    {
+        $client = \Config\Services::curlrequest();
+        $headers = [
+            'Authorization' => 'Basic TmFzMTo5bUhnbkFtaFBRYms5cjhNYm9yQnpnSUoyMkdjemVIMw==', // Replace 'username:password' with your actual username and password
+            'Content-Type' => 'application/json'
+        ];
+        $response = $client->get($url, [
+            'headers' => $headers
+        ]);
+        return json_decode($response->getBody(), true);
+    }
+
+    private function postApiGardu($url, $data)
+    {
+        $client = \Config\Services::curlrequest();
+        $headers = [
+            'Authorization' => 'Basic TmFzMTo5bUhnbkFtaFBRYms5cjhNYm9yQnpnSUoyMkdjemVIMw==', // Replace with your actual base64-encoded username:password
+            'Content-Type' => 'application/json'
+        ];
+        $response = $client->post($url, [
+            'headers' => $headers,
+            'json' => $data
+        ]);
+        return json_decode($response->getBody(), true);
+    }
+    public function index()
+    {
         $data = [
             'title' => 'Rencana Pembangunan Jangka Menengah Daerah (RPJMD)',
             'deskription' => 'Merupakan dokumen perencanaan pembangunan daerah sebagai landasan dan pedoman bagi Pemerintah Daerah dalam melaksanakan pembangunan 5 (lima) tahun yang merupakan penjabaran dari visi, misi dan program Kepala Daerah terpilih; dan tujuan, sasaran, strategi, arah kebijakan pembangunan dan program pembangunan yang akan dilaksanakan oleh Perangkat Daerah, disertai dengan kerangka pendanaan yang bersifat indikatif.',
             'image' =>  base_url('public/img/icons/laporan.png'),
-            'selectData' => getApiGardu($this->apiEndPointGardu . 'list-data-dukung'),
+            'selectData' => $this->getApiGardu($this->apiEndPointGardu . 'list-data-dukung'),
             'activePage' => ACTIVE_PAGE_ANALISA
         ];
 
         return view('analisa/index', $data);
     }
 
-    public function getDataAjax() {
+    public function getDataAjax()
+    {
         $endPoint = $this->apiEndPointGardu . "nilai-data-dukung";
         $arrData = $this->request->getGet('data');
         $arrTahun = $this->request->getGet('tahun');
@@ -55,7 +89,7 @@ class Analisa extends BaseController {
             'tahun' => $arrTahun,
         ];
 
-        $resp = postApiGardu($endPoint,  $dataBody);
+        $resp = $this->postApiGardu($endPoint,  $dataBody);
 
         $tbody = [];
         $satuan = [];
@@ -109,7 +143,8 @@ class Analisa extends BaseController {
         );
     }
 
-    private function genTbody($number, $data, $categoriTahun) {
+    private function genTbody($number, $data, $categoriTahun)
+    {
         $colomTahun = [];
         foreach ($categoriTahun as $key1 => $val1) {
             foreach ($data['nilai_tahun'] as $key2 => $val2) {
@@ -128,7 +163,8 @@ class Analisa extends BaseController {
         </tr>';
     }
 
-    private function genThead($listTahun) {
+    private function genThead($listTahun)
+    {
         $string = "";
         foreach ($listTahun as $key => $val) {
             $string .= '<td class="text-center"> ' . $val . '</td>';
