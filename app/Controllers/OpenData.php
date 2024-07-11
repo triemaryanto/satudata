@@ -4,19 +4,25 @@ namespace App\Controllers;
 
 use App\Helpers\CustomHelper;
 
-class OpenData extends BaseController {
+class OpenData extends BaseController
+{
     private $client;
     private $pager;
     private $validation;
     private $apiEndPointGardu;
-    public function __construct() {
+    public function __construct()
+    {
         $this->client = \Config\Services::curlrequest();
         $this->pager = service('pager');
         $this->validation = \Config\Services::validation();
-        $this->apiEndPointGardu = apiEndPointGardu();
+        $this->apiEndPointGardu = $this->apiEndPointGardu();
     }
-
-    public function index() {
+    public function apiEndPointGardu()
+    {
+        return "https://gardu.wonosobokab.go.id/api/";
+    }
+    public function index()
+    {
         $total = count($this->getCkan("https://data.wonosobokab.go.id/api/3/action/package_list"));
 
         $selectOrg = [];
@@ -40,7 +46,8 @@ class OpenData extends BaseController {
         return view('openData/index', $data);
     }
 
-    public function getDataTable() {
+    public function getDataTable()
+    {
         if (!$this->request->isAJAX()) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
@@ -89,7 +96,8 @@ class OpenData extends BaseController {
         return $this->response->setJSON($data);
     }
 
-    public function organisasi() {
+    public function organisasi()
+    {
         $page = max((int)$this->request->getGet('page'), 1);
 
         $perPage = 9;
@@ -110,7 +118,8 @@ class OpenData extends BaseController {
         ];
         return view('openData/organisasi', $data);
     }
-    public function group() {
+    public function group()
+    {
         $page = max((int)$this->request->getGet('page'), 1);;
 
         $perPage = 9;
@@ -133,7 +142,8 @@ class OpenData extends BaseController {
         return view('openData/group', $data);
     }
 
-    public function detailOrganisasi($name) {
+    public function detailOrganisasi($name)
+    {
         // $page = (int) $this->request->getGet('page') ??  1;
         // $perPage = 10;
         // $total = count($this->getCkan("https://data.wonosobokab.go.id/api/3/action/organization_list"));
@@ -150,7 +160,8 @@ class OpenData extends BaseController {
         ];
         return view('openData/detailOrganisasi', $data);
     }
-    public function detailGroup($name) {
+    public function detailGroup($name)
+    {
         // $page = (int) $this->request->getGet('page') ??  1;
         // $perPage = 10;
         // $total = count($this->getCkan("https://data.wonosobokab.go.id/api/3/action/organization_list"));
@@ -169,7 +180,8 @@ class OpenData extends BaseController {
         return view('openData/detailGroup', $data);
     }
 
-    public function detailDataset($name) {
+    public function detailDataset($name)
+    {
         $dataset = $this->getCkan("https://data.wonosobokab.go.id/api/3/action/package_show?id=" . $name);
 
         $data = [
@@ -180,7 +192,8 @@ class OpenData extends BaseController {
         return view('openData/detailDataset', $data);
     }
 
-    public function getCkan($url) {
+    public function getCkan($url)
+    {
         $options = [
             'allow_redirects' => false,
             'verify' => false,
@@ -216,7 +229,8 @@ class OpenData extends BaseController {
         return  $data['result'];
     }
 
-    public function downloadFile($path) {
+    public function downloadFile($path)
+    {
         if (!$this->request->isAJAX()) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('data tidak di temukan');
         }

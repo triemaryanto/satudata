@@ -2,17 +2,23 @@
 
 namespace App\Controllers;
 
-class Data extends BaseController {
+class Data extends BaseController
+{
     private $apiEndPointGardu;
     private $validation;
-    public function __construct() {
+    public function __construct()
+    {
         // end point di sesuaikan dengan CI_ENVIRONMENT
-        $this->apiEndPointGardu = apiEndPointGardu();
+        $this->apiEndPointGardu = $this->apiEndPointGardu();
         $this->validation = \Config\Services::validation();
     }
 
-
-    public function rpjmd() {
+    public function apiEndPointGardu()
+    {
+        return "https://gardu.wonosobokab.go.id/api/";
+    }
+    public function rpjmd()
+    {
         $data = [
             'title' => 'Rencana Pembangunan Jangka Menengah Daerah (RPJMD)',
             'deskription' => 'Merupakan dokumen perencanaan pembangunan daerah sebagai landasan dan pedoman bagi Pemerintah Daerah dalam melaksanakan pembangunan 5 (lima) tahun yang merupakan penjabaran dari visi, misi dan program Kepala Daerah terpilih; dan tujuan, sasaran, strategi, arah kebijakan pembangunan dan program pembangunan yang akan dilaksanakan oleh Perangkat Daerah, disertai dengan kerangka pendanaan yang bersifat indikatif.',
@@ -23,7 +29,8 @@ class Data extends BaseController {
 
         return view('data/index', $data);
     }
-    public function sdgs() {
+    public function sdgs()
+    {
         $data = [
             'title' => 'Sustainable Development Goals (SDG`s)',
             'deskription' => 'Merupakan kesepakatan pembangunan baru yang mendorong perubahan-perubahan yang bergeser ke arah pembangunan berkelanjutan yang berdasarkan hak asasi manusia dan kesetaraan untuk mendorong pembangunan sosial, ekonomi, dan lingkungan hidup.',
@@ -35,7 +42,8 @@ class Data extends BaseController {
 
         return view('data/index', $data);
     }
-    public function lppd() {
+    public function lppd()
+    {
         $data = [
             'title' => 'Laporan Penyelenggaraan Pemerintah Daerah (LPPD)',
             'deskription' => 'Merupakan laporan yang disampaikan oleh Pemerintah Daerah kepada Pemerintah Pusat yang memuat capaian kinerja penyelenggaraan pemerintah daerah dan pelaksanaan tugas pembantuan selama 1 (satu) tahun anggaran.',
@@ -47,7 +55,8 @@ class Data extends BaseController {
 
         return view('data/index', $data);
     }
-    public function spm() {
+    public function spm()
+    {
         $data = [
             'title' => 'Standar Pelayanan Minimal (SPM)',
             'deskription' => ' Merupakan ketentuan mengenai Jenis dan Mutu Pelayanan Dasar yang merupakan Urusan Pemerintahan Wajib yang berhak diperoleh setiap Warga Negara secara minimal.',
@@ -59,7 +68,8 @@ class Data extends BaseController {
 
         return view('data/index', $data);
     }
-    public function getDataAjax() {
+    public function getDataAjax()
+    {
         if (!$this->request->isAJAX()) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('data tidak di temukan');
         }
@@ -74,7 +84,8 @@ class Data extends BaseController {
         return $this->response->setJSON($resp);
     }
 
-    public function downloadFile($path) {
+    public function downloadFile($path)
+    {
         if (!$this->request->isAJAX()) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('data tidak di temukan');
         }

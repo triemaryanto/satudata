@@ -26,7 +26,7 @@ class Home extends BaseController
             'activePage' => ACTIVE_PAGE_HOME
         ];
 
-        return view('home/index', $data);
+        return view('home/index', $data = ['berita' => $this->getBerita(), 'data_statistik' => []]);
     }
 
     public function getBerita()
