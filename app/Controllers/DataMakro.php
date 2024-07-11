@@ -2,17 +2,31 @@
 
 namespace App\Controllers;
 
-class DataMakro extends BaseController {
+class DataMakro extends BaseController
+{
     private $apiEndPointGardu;
     private $validation;
-    public function __construct() {
+    public function __construct()
+    {
         // end point di sesuaikan dengan CI_ENVIRONMENT
-        $this->apiEndPointGardu = apiEndPointGardu();
+        $this->apiEndPointGardu = "https://gardu.wonosobokab.go.id/api/";
         $this->validation = \Config\Services::validation();
     }
+    private function getApiGardu($url)
+    {
+        $client = \Config\Services::curlrequest();
+        $headers = [
+            'Authorization' => 'Basic TmFzMTo5bUhnbkFtaFBRYms5cjhNYm9yQnpnSUoyMkdjemVIMw==', // Replace 'username:password' with your actual username and password
+            'Content-Type' => 'application/json'
+        ];
+        $response = $client->get($url, [
+            'headers' => $headers
+        ]);
+        return json_decode($response->getBody(), true);
+    }
 
-
-    public function index() {
+    public function index()
+    {
         $data = [
             'title' => 'Data Makro',
             'deskription' => 'Deskripsi Data Makro Wonosobo',
@@ -24,7 +38,8 @@ class DataMakro extends BaseController {
         return view('dataMakro/index', $data);
     }
 
-    public function getDataAjax() {
+    public function getDataAjax()
+    {
         if (!$this->request->isAJAX()) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound('data tidak di temukan');
         }
@@ -49,7 +64,7 @@ class DataMakro extends BaseController {
 
         $tahun = (int) $this->request->getGet('tahun');
         $endPoint = $this->apiEndPointGardu . "data-makro?tahun=" . $tahun;
-        $resp = getApiGardu($endPoint);
+        $resp = $this->getApiGardu($endPoint);
         $result = [];
         foreach ($resp as $key => $val) {
             $arrCategori = [];
