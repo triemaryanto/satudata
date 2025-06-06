@@ -1,12 +1,34 @@
 <?php
 
+use CodeIgniter\Commands\Utilities\Routes;
 use CodeIgniter\Router\RouteCollection;
 
 /**
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+$routes->get('/login', 'LoginController::index');
+$routes->post('/loginPost', 'LoginController::auth');
+$routes->get('/logout', 'LoginController::logout');
+$routes->get('template', function () {
+    $filePath = FCPATH . 'documentation.html';
+    if (file_exists($filePath)) {
+        return file_get_contents($filePath);
+    }
+    // Return a 404 response if the file doesn't exist
+    throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+});
 
+$routes->group('admin', ['filter' => 'auth'], function ($routes) {
+    $routes->get('dashboard', 'DashboardController::index');
+    $routes->get('berita', 'BeritaController::index');
+    $routes->get('addberita/', 'BeritaController::addOrEdit');
+    $routes->get('editberita/(:num)?', 'BeritaController::addOrEdit/$1');
+    $routes->post('saveberita/', 'BeritaController::saveBerita');
+    $routes->post('updateberita/(:num)?', 'BeritaController::saveBerita/$1');
+    $routes->get('deleteberita/(:num)', 'BeritaController::delete/$1');
+    $routes->get('publikasi', 'PublikasiController::index');
+});
 
 $routes->get('cari', 'Cari::index'); // pencarian data
 $routes->get('berita', 'Berita::index'); // halaman berita
